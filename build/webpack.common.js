@@ -4,10 +4,6 @@ const config = require('./config/index');
 module.exports = {
 	entry: config.entry,
 	output: config.output,
-	resolve: {
-		extensions: ['.tsx', '.ts', '.js', '.json']
-	},
-	devtool: 'source-map',
 	module: {
 		rules: [
 			{
@@ -27,4 +23,10 @@ module.exports = {
 			inject: 'body'
 		}),
 	],
+	resolve: {
+		extensions: ['.tsx', '.ts', '.js', '.json'],
+		alias: {
+			'@src': resolve('src')
+		}
+	}
 }

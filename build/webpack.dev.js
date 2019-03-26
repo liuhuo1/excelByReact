@@ -4,6 +4,7 @@ const commonConfig = require('./webpack.common');
 const config = require('./config');
 module.exports = merge.smart(commonConfig, {
 	mode: 'development',
+	devtool: 'source-map',
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NamedModulesPlugin()
