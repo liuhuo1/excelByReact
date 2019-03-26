@@ -1,6 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const config = require('./config/index');
-
+const resolve = require('./config/path');
 module.exports = {
 	entry: config.entry,
 	output: config.output,
