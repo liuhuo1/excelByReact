@@ -1,17 +1,13 @@
 const merge = require('webpack-merge')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-
-const paths = require('../paths')
+const config = require('./config')
 const commonConfig = require('./webpack.config.common')
+
+process.env.NODE_ENV = 'production';
 
 module.exports = merge.smart(commonConfig, {
 	mode: 'production',
-	entry: paths.appIndex,
-	output: {
-		path: paths.appBuild,
-		filename: 'static/js/[name]-[hash:8].js',
-	},
 	optimization: {
 		minimizer: [
       // 压缩 js
@@ -28,7 +24,7 @@ module.exports = merge.smart(commonConfig, {
 	},
 	plugins: [
     // 每次编译之前，清空上一次编译的文件
-    new CleanWebpackPlugin([paths.appBuild], {
+    new CleanWebpackPlugin([config.output.path], {
 			root: process.cwd()
 		}),
   ],

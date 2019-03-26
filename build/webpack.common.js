@@ -1,7 +1,9 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const paths = require('../paths')
+const config = require('./config/index')
 
 module.exports = {
+	entry: config.entry,
+	output: config.output,
 	resolve: {
 		extensions: ['.tsx', '.ts', '.js', '.json']
 	},
@@ -22,7 +24,7 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			title: 'React + Typescript Project',
-			template: paths.appHtml,
+			template: config.templatePath,
 			inject: false,
 		}),
 	],
