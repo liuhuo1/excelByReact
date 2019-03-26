@@ -1,5 +1,5 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const config = require('./config/index')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const config = require('./config/index');
 
 module.exports = {
 	entry: config.entry,
@@ -23,9 +23,8 @@ module.exports = {
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
-			title: 'React + Typescript Project',
 			template: config.templatePath,
-			inject: false,
+			inject: 'body'
 		}),
 	],
 }

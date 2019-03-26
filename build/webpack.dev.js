@@ -1,6 +1,6 @@
-const webpack = require('webpack')
-const merge = require('webpack-merge')
-const commonConfig = require('./webpack.common')
+const webpack = require('webpack');
+const merge = require('webpack-merge');
+const commonConfig = require('./webpack.common');
 const config = require('./config');
 module.exports = merge.smart(commonConfig, {
 	mode: 'development',
@@ -13,7 +13,7 @@ module.exports = merge.smart(commonConfig, {
 		historyApiFallback: true,
 		// 关闭 Host 检查，同网段其他设备，可通过内网 IP 访问本机服务（需要配合 host: '0.0.0.0'）使用
 		disableHostCheck: true,
-		host: '0.0.0.0',
+		host: 'localhost',
 		inline: true,
 		hot: true,
 		...config.devServer

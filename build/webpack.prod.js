@@ -1,9 +1,7 @@
 const merge = require('webpack-merge')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const config = require('./config')
-const commonConfig = require('./webpack.config.common')
-
+const commonConfig = require('./webpack.common');
 process.env.NODE_ENV = 'production';
 
 module.exports = merge.smart(commonConfig, {
@@ -23,9 +21,7 @@ module.exports = merge.smart(commonConfig, {
 		},
 	},
 	plugins: [
-    // 每次编译之前，清空上一次编译的文件
-    new CleanWebpackPlugin([config.output.path], {
-			root: process.cwd()
-		}),
-  ],
+		// 每次编译之前，清空上一次编译的文件
+		new CleanWebpackPlugin(),
+	],
 })
