@@ -2,29 +2,67 @@ import React from 'react';
 
 interface SquareProps {
 	value: number;
+	onClick: () => void;
 }
+// interface SquareState {
+// 	value: string;
+// }
+// class Square extends React.Component<SquareProps, SquareState> {
+// 	constructor(props: SquareProps) {
+// 		super(props);
+// 		this.state = {
+// 			value: '.',
+// 		}
+// 	}
+// 	static defaultProps = {
+// 		value: 0
+// 	}
 
-class Square extends React.Component<SquareProps> {
-	constructor(props: SquareProps) {
+// 	private click = () => {
+// 		this.setState({ value: 'X' });
+// 	}
+
+// 	render() {
+// 		const { value, onClick } = this.props;
+// 		return (
+// 			<button
+// 				className="square"
+// 				onClick={() => { onClick() }}>
+// 				{value}
+// 			</button>
+// 		);
+// 	}
+// }
+function Square(props: SquareProps) {
+	return (
+		<button
+			className="square"
+			onClick={props.onClick}
+		>
+			{props.value}
+		</button>
+	);
+}
+interface BoardState {
+	squares: Array<any>
+};
+class Board extends React.Component<any, BoardState> {
+	constructor(props: any) {
 		super(props);
+		this.state = {
+			squares: Array(9).fill(1),
+		};
 	}
-
-	static defaultProps = {
-		value: 0
+	private handleClick = (i: number) => {
+		const squares = this.state.squares.slice();
+		squares[i] = 'X';
+		this.setState({ squares: squares });
 	}
-	render() {
-		const { value } = this.props;
-		return (
-			<button className="square">
-				{value}
-			</button>
-		);
-	}
-}
-
-class Board extends React.Component {
 	renderSquare(i: number) {
-		return <Square value={i} />;
+		return <Square
+			value={this.state.squares[i]}
+			onClick={() => this.handleClick(i)}
+		/>;
 	}
 
 	render() {
