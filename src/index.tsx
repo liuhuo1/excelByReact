@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Game } from '@src/modules/start';
+import { Clock } from '@src/modules/hello';
 ReactDOM.render(
 	<div>
-		<Game />
+		<Clock />
+		<Clock />
+		<Clock />
 	</div>,
 	document.getElementById('root'),
 )
