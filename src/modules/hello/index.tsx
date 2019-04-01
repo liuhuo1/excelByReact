@@ -34,8 +34,8 @@ export class Clock extends React.Component<any, ClockState> {
 		return (
 			<div>
 				<h1>Hello, world!</h1>
-				{numbers.map((number) =>
-					<li>{number}</li>
+				{numbers.map((number, index) =>
+					<li key={index}>{number}</li>
 				)}
 				<h2>It is {date.toLocaleTimeString()}.</h2>
 			</div>
