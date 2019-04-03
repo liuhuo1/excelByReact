@@ -1,12 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ThemeApp } from '@src/modules/context';
+import { withSubscription, BlogPost } from '@src/modules/test/higherOrderComponent';
+
 ReactDOM.render(
 	<div>
-		{new Array(3).fill(1).map((val, index) => {
-			console.log(index);
-			return <ThemeApp key={index} />;
-		})}
+		{withSubscription(BlogPost, { text: 1 })}
 	</div>,
 	document.getElementById('root'),
 )
