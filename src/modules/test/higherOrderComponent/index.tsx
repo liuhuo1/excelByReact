@@ -9,6 +9,7 @@ export class CommentList extends React.Component<commentListProps> {
 	}
 	render() {
 		const { text } = this.props;
+		debugger;
 		return (
 			<div>
 				{text}
