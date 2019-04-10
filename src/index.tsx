@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { MouseTracker } from '@src/modules/test/refs';
+import { ExcelCanvas } from '@src/components/excelCanvas';
 
 ReactDOM.render(
 	<div>
-		<MouseTracker></MouseTracker>
+		<ExcelCanvas></ExcelCanvas>
 	</div>,
 	document.getElementById('root'),
 )
