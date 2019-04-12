@@ -1,38 +1,42 @@
 {
-	"name": "excelbyreact",
-	"version": "0.0.1",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"start": "webpack-dev-server --open --colors --config build/webpack.dev.js",
-		"build": "webpack --progress --colors --config build/webpack.prod.js"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/liuhuo1/excelByReact.git"
-	},
-	"author": "",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/liuhuo1/excelByReact/issues"
-	},
-	"homepage": "https://github.com/liuhuo1/excelByReact#readme",
-	"dependencies": {
-		"@types/react": "^16.8.8",
-		"@types/react-dom": "^16.8.3",
-		"react": "^16.8.4",
-		"react-dom": "^16.8.4"
-	},
-	"devDependencies": {
-		"clean-webpack-plugin": "^2.0.1",
-		"html-webpack-plugin": "^3.2.0",
-		"uglifyjs-webpack-plugin": "^2.1.2",
-		"webpack": "^4.29.6",
-		"webpack-cli": "^3.3.0",
-		"webpack-dev-server": "^3.2.1",
-		"webpack-merge": "^4.2.1",
-		"source-map-loader": "^0.2.4",
-		"ts-loader": "^5.3.3",
-		"typescript": "^3.3.4000"
-	}
+  "name": "excelbyreact",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --open --colors --config build/webpack.dev.js",
+    "build": "webpack --progress --colors --config build/webpack.prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liuhuo1/excelByReact.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liuhuo1/excelByReact/issues"
+  },
+  "homepage": "https://github.com/liuhuo1/excelByReact#readme",
+  "dependencies": {
+    "@types/react": "^16.8.8",
+    "@types/react-dom": "^16.8.3",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^2.0.1",
+    "css-loader": "^2.1.1",
+    "html-webpack-plugin": "^3.2.0",
+    "source-map-loader": "^0.2.4",
+    "style-loader": "^0.23.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.3.4000",
+    "uglifyjs-webpack-plugin": "^2.1.2",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.2.1",
+    "webpack-merge": "^4.2.1"
+  }
 }

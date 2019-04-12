@@ -12,6 +12,10 @@ module.exports = {
 				loader: "source-map-loader"
 			},
 			{
+				test: /\.styl$/,
+				loaders: ['style-loader', 'css-loader', 'stylus-loader'],
+			},
+			{
 				test: /\.(ts|tsx)$/,
 				loader: "ts-loader",
 			},
