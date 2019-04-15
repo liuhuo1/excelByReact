@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom';
 import { ExcelCanvas } from '@src/components/excelCanvas';
 import '@src/common/style/index.styl';
 ReactDOM.render(
-	<div>
-		<ExcelCanvas></ExcelCanvas>
-	</div>,
+	<ExcelCanvas></ExcelCanvas>
+	,
 	document.getElementById('root'),
 )
