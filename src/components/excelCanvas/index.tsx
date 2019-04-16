@@ -1,5 +1,6 @@
 import React from 'react';
 import './style.styl';
+import draw from '@src/canvas';
 interface commentListProps {
 	text?: string;
 };
@@ -13,6 +14,7 @@ export class ExcelCanvas extends React.Component<commentListProps> {
 	componentDidMount() {
 		this.initCanvas();
 		this.resizeCanvas();
+		draw(this.canvas.current);
 	}
 	componentWillUnmount() {
 		this.cancelListen();
