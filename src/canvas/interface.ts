@@ -10,3 +10,7 @@ export interface HTMLCanvasElement {
 export interface LineStyle {
 	color?: string;
 }
+
+export interface TextStyle {
+	color?: string;
+}
