@@ -30,7 +30,8 @@ module.exports = {
 	resolve: {
 		extensions: ['.tsx', '.ts', '.js', '.json'],
 		alias: {
-			'@src': resolve('src')
+			'@src': resolve('src'),
+			'@canvas': resolve('src/canvas')
 		}
 	}
 }

@@ -2,7 +2,10 @@
 	"compilerOptions": {
 		"allowSyntheticDefaultImports": true,
 		"jsx": "react",
-		"lib": ["es6", "dom"],
+		"lib": [
+			"es6",
+			"dom"
+		],
 		"module": "esnext",
 		"moduleResolution": "node",
 		"noImplicitAny": true,
@@ -12,11 +15,16 @@
 		"target": "es2017",
 		"baseUrl": "./",
 		"paths": {
-			"@src/*": ["src/*"]
+			"@src/*": [
+				"src/*"
+			],
+			"@canvas/*": [
+				"src/canvas/*"
+			]
 		}
 	},
 	"exclude": [
-    "node_modules",
-    "build"
-  ]
+		"node_modules",
+		"build"
+	]
 }
