@@ -14,5 +14,9 @@ export interface LineStyle {
 }
 
 export interface TextStyle {
-	color?: string;
+	// color?: string;
+	// textBaseline?: string;
+	// textAlign?: string;
+	// font?: string;
+	[key: string]: string;
 }

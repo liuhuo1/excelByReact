@@ -4,3 +4,14 @@ export interface TableStyle {
 	tdHeight: number;
 	borderWidth: number;
 }
+
+export interface TdStyle {
+	color?: string;
+	width: number;
+	height: number;
+}
+
+export interface TdCoordinate {
+	x: number;
+	y: number;
+}

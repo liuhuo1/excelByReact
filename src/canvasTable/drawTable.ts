@@ -1,21 +1,8 @@
 import { drawLine } from '@canvas/line.ts';
 import { PointData, HTMLCanvasElement } from '@canvas/interface';
 import { TableStyle } from './interface';
+import { getDrawSize } from './helper';
 
-const getDrawSize = function (canvas: any, startPos: PointData, config: TableStyle) {
-	const width = canvas.width;
-	const height = canvas.height;
-	const tdWidth = config.tdWidth;
-	const tdHeight = config.tdHeight;
-	let startWidth = width - startPos.x;
-	let startHeight = height - startPos.y;
-	startWidth = Math.ceil(startWidth / tdWidth) * tdWidth - config.borderWidth;
-	startHeight = Math.ceil(startHeight / tdHeight) * tdHeight - config.borderWidth;
-	return {
-		width: startWidth,
-		height: startHeight
-	}
-}
 
 export const drawTable = function (canvas: any, startPos: PointData, config: TableStyle) {
 	const startTdWidth = config.tdWidth - config.borderWidth;
