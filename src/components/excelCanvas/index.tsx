@@ -1,7 +1,7 @@
 import React from 'react';
 import './style.styl';
-import { drawTable } from '@src/canvasTable/drawTable';
-import { drawTdText } from '@src/canvasTable/drawTdText';
+import { drawTableByScroll } from '@src/canvasTable/drawTable';
+import { drawTdTextByScroll } from '@src/canvasTable/drawTdText';
 interface commentListProps {
 	text?: string;
 };
@@ -25,17 +25,15 @@ export class ExcelCanvas extends React.Component<commentListProps> {
 		window.addEventListener('resize', this.resizeCanvas);
 	}
 	drawTable() {
-		let date = new Date().getTime();
-		drawTable(this.canvas.current, { x: -10, y: -10 }, {
+		drawTableByScroll(this.canvas.current, { x: 10, y: 10 }, {
 			borderWidth: 1,
 			tdWidth: 80,
 			tdHeight: 30
 		});
-		drawTdText(this.canvas.current, { x: -10, y: -10 }, { x: 3, y: 3 }, 'aa', {
+		drawTdTextByScroll(this.canvas.current, { x: 10, y: 10 }, { x: 0, y: 0 }, 'aa', {
 			width: 80,
 			height: 30
 		});
-		console.log('duration', new Date().getTime() - date);
 	}
 	// 设置canvas的大小
 	resizeCanvas = () => {

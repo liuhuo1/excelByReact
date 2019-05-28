@@ -15,3 +15,8 @@ export interface TdCoordinate {
 	x: number;
 	y: number;
 }
+
+export interface ScrollPos {
+	x: number;
+	y: number;
+}

@@ -1,6 +1,6 @@
 import { drawLine } from '@canvas/line.ts';
 import { PointData, HTMLCanvasElement } from '@canvas/interface';
-import { TableStyle } from './interface';
+import { TableStyle, ScrollPos } from './interface';
 import { getDrawSize } from './helper';
 
 
@@ -33,4 +33,14 @@ export const drawTable = function (canvas: any, startPos: PointData, config: Tab
 		curX = curX + config.tdWidth;
 		curY = curY + config.tdHeight
 	}
+}
+
+export const drawTableByScroll = function (canvas: any, scroll: ScrollPos, config: TableStyle) {
+	const tdWidth = config.tdWidth;
+	const tdHeight = config.tdHeight;
+	let startPos = {
+		x: 0 - scroll.x % tdWidth,
+		y: 0 - scroll.y % tdHeight
+	}
+	drawTable(canvas, startPos, config);
 }
