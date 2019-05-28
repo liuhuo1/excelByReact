@@ -31,7 +31,7 @@ export class ExcelCanvas extends React.Component<commentListProps> {
 			tdWidth: 80,
 			tdHeight: 30
 		});
-		drawTdText(this.canvas.current, { x: -10, y: -10 }, { x: 3, y: 3 }, '测试asdasdasdasdasd', {
+		drawTdText(this.canvas.current, { x: -10, y: -10 }, { x: 3, y: 3 }, 'aa', {
 			width: 80,
 			height: 30
 		});
