@@ -2,6 +2,7 @@ import React from 'react';
 import './style.styl';
 import { drawTableByScroll } from '@src/canvasTable/drawTable';
 import { drawTdTextByScroll } from '@src/canvasTable/drawTdText';
+import ScrollBar from '@src/scroll/index';
 interface commentListProps {
 	text?: string;
 };
@@ -50,9 +51,11 @@ export class ExcelCanvas extends React.Component<commentListProps> {
 	render() {
 		this.wrapper = React.createRef();
 		this.canvas = React.createRef();
+		let height = 30 * 100;
 		return (
 			<div className="er-canvas-wrapper" ref={this.wrapper} id="test">
 				<canvas id="canvas" ref={this.canvas}></canvas>
+				<ScrollBar height={height}></ScrollBar>
 			</div>
 		);
 	}
