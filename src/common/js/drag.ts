@@ -1,41 +1,57 @@
 import { getTop, getStyle, getLeft, getPos, getDomSize, getDom } from '@src/common/js/dom';
+
 window.addEventListener('load', function () {
 	document.addEventListener('mousemove', handleDrag);
 	document.addEventListener('mouseup', handleLeave, false);
 });
 
+const defaultStyle: any = {
+	'user-select': 'none',
+	'cursor': 'move'
+};
 
+interface StartPosInter {
+	x: number;
+	y: number;
+	bound: any
+}
+
+interface DragHTMLElement extends HTMLElement {
+	_simpleDrag: boolean;
+	_dragFn: any;
+}
 /**
  * 元素可拖动指令
  * 参数
  * target            需要移动的元素若没有则默认为移动拖动的元素
  * wrap              移动元素的最大可移动范围默认为body元素
  **/
-let movedDom;
-let dragedDom;
-let startPos;
-let cacheStyle;
-let defaultStyle = {
-	'user-select': 'none',
-	'cursor': 'move'
-};
-const handleMousedown = function (e, data) {
+let movedDom: HTMLElement | null;
+let dragedDom: HTMLElement | null;
+let startPos: StartPosInter | null;
+let cacheStyle: any | null;
+let moveingCb: Function | null | undefined;
+
+const handleMousedown = function (e: MouseEvent, wrapper?: HTMLElement, moveWrapper?: HTMLElement) {
 	if (movedDom) {
 		handleLeave();
 	}
 	cacheStyle = {};
-	Object.keys(defaultStyle).forEach((key) => {
-		cacheStyle[key] = getStyle(e.target, key);
-		e.target.style[key] = defaultStyle[key];
+	let moveTarget = e.target as HTMLElement;
+
+	Object.keys(defaultStyle).forEach((key: string) => {
+		cacheStyle[key] = getStyle(moveTarget, key);
+		moveTarget.style[key] = defaultStyle[key];
 	});
-	let target = getDom(data && data.target) || e.target;
+
+	let target = getDom(moveWrapper) || moveTarget;
 
 	let mouse = {
 		x: e.pageX,
 		y: e.pageY
 	};
 	let start = getPos(target);
-	let wrap = getDom(data && data.wrap) || document.body;
+	let wrap = getDom(wrapper) || document.body;
 	let wrapSize = getDomSize(wrap);
 	let domSize = getDomSize(target);
 	let bound = {
@@ -49,29 +65,31 @@ const handleMousedown = function (e, data) {
 		y: start.y - mouse.y,
 		bound
 	};
-	console.log(startPos);
 	movedDom = target;
-	dragedDom = e.target;
+	dragedDom = moveTarget;
 };
+
 const handleLeave = function () {
 	if (!movedDom) {
 		return;
 	}
+
 	Object.keys(cacheStyle).forEach((key) => {
-		dragedDom.style[key] = cacheStyle[key];
+		dragedDom!.style[key] = cacheStyle[key];
 	});
+
 	movedDom = null;
 	startPos = null;
 	cacheStyle = null;
 	dragedDom = null;
 };
-const handleDrag = function (e) {
+const handleDrag = function (e: MouseEvent) {
 	if (!movedDom) {
 		return;
 	}
-	let bound = startPos.bound;
-	let left = e.pageX + startPos.x;
-	let top = e.pageY + startPos.y;
+	let bound = startPos!.bound;
+	let left = e.pageX + startPos!.x;
+	let top = e.pageY + startPos!.y;
 	if (bound.minx > left) {
 		left = bound.minx;
 	}
@@ -86,28 +104,27 @@ const handleDrag = function (e) {
 	}
 	movedDom.style.left = `${left}px`;
 	movedDom.style.top = `${top}px`;
+	if (moveingCb) {
+		moveingCb({
+			top, left
+		});
+	}
 };
 
 
 
-export default function (target: HTMLElement, parent: HTMLElement) {
-	const start = function (e: HTMLElement) {
-		handleMousedown(e, data);
+export default function (target: DragHTMLElement, wrapper?: HTMLElement, moveTarget?: HTMLElement, cb?: Function) {
+	const start = function (e: MouseEvent) {
+		handleMousedown(e, wrapper, moveTarget);
 	};
-	const end = function (e: HTMLElement) {
-		handleLeave(e, data);
-	};
-	if (el._simpleDrag) {
-		el.removeEventListener('mousedown', el._dragFn.start);
-		// el.removeEventListener('mouseup', el._dragFn.end);
-		// el.removeEventListener('mouseleave', el._dragFn.end);
+	moveingCb = null;
+	if (target._simpleDrag) {
+		target.removeEventListener('mousedown', target._dragFn.start);
 	}
-	el.addEventListener('mousedown', start, false);
-	// el.addEventListener('mouseup', end, false);
-	// el.addEventListener('mouseleave', end, false);
-	el._dragFn = {
-		start,
-		end
+	target.addEventListener('mousedown', start, false);
+	target._dragFn = {
+		start
 	};
-	el._simpleDrag = true;
+	target._simpleDrag = true;
+	moveingCb = cb;
 }

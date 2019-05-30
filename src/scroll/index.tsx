@@ -1,10 +1,13 @@
 import React from 'react';
 import './style.styl';
 import domDrag from '@src/common/js/drag';
+import { getStyle } from '@src/common/js/dom';
+
 interface ScrollBarProps {
 	type?: string;
 	width?: number;
 	height: number;
+	scrollCb: Function
 };
 interface ScrollBarState {
 	thumbHeight: number;
@@ -19,10 +22,14 @@ export default class ScrollBar extends React.Component<ScrollBarProps> {
 		};
 	}
 	wrapper: any;
+	thumb: any;
 	state: ScrollBarState;
 	componentDidMount() {
 		this.bindEvent();
 		this.setThumbHeight();
+	}
+	componentDidUpdate() {
+		this.moving();
 	}
 	componentWillUnmount() {
 		this.removeBind();
@@ -51,10 +58,24 @@ export default class ScrollBar extends React.Component<ScrollBarProps> {
 		let parentHeight = this.wrapper.current.parentNode.clientHeight;
 		let thumbHeight = Math.ceil((parentHeight * parentHeight) / this.props.height);
 		this.setState({ thumbHeight: thumbHeight });
-		domDrag(this.wrapper.current, this.wrapper.current.parentNode);
+		domDrag(this.thumb.current, this.wrapper.current, undefined, this.movingCb);
+	}
+	movingCb = (pos) => {
+		this.setState({
+			scrollTop: pos.top
+		})
+	}
+	moving = () => {
+		let top = parseInt(getStyle(this.thumb.current, 'top')) || 0;
+		let thumbHeight = this.thumb.current.clientHeight;
+		let wrapperHeight = this.wrapper.current.clientHeight;
+		let height = this.props.height;
+		let moveTop = top * (height - wrapperHeight) / (wrapperHeight - thumbHeight);
+		this.props.scrollCb(moveTop);
 	}
 	render() {
 		this.wrapper = React.createRef();
+		this.thumb = React.createRef();
 		let { thumbHeight, scrollTop } = this.state;
 		let thumbStyle = {
 			height: `${thumbHeight}px`,
@@ -63,7 +84,7 @@ export default class ScrollBar extends React.Component<ScrollBarProps> {
 		return (
 			<div className="er-scrollbar-wrapper" ref={this.wrapper} >
 				<div className="er-scroll-track">
-					<div className="er-scroll-thumb" style={thumbStyle}></div>
+					<div className="er-scroll-thumb" ref={this.thumb} style={thumbStyle}></div>
 				</div>
 			</div>
 		);

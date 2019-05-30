@@ -32,7 +32,10 @@ export const getDomSize = function (dom: HTMLElement) {
 	};
 };
 
-export const getDom = function (data: HTMLElement | string) {
+export const getDom = function (data: HTMLElement | string | undefined): HTMLElement | null {
+	if (!data) {
+		return null;
+	}
 	if (typeof data === 'string') {
 		return document.querySelector(data);
 	}

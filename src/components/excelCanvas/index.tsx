@@ -1,18 +1,27 @@
 import React from 'react';
 import './style.styl';
+import { clearCanvas } from '@src/canvas';
 import { drawTableByScroll } from '@src/canvasTable/drawTable';
 import { drawTdTextByScroll } from '@src/canvasTable/drawTdText';
 import ScrollBar from '@src/scroll/index';
 interface commentListProps {
 	text?: string;
 };
+interface ScrollPos {
+	x: number;
+	y: number;
+}
+interface ExcelCanvasState {
 
+}
 export class ExcelCanvas extends React.Component<commentListProps> {
 	constructor(props: commentListProps) {
 		super(props);
+		this.scrollPos = { x: 0, y: 0 };
 	}
 	canvas?: any;
 	wrapper?: any;
+	scrollPos: ScrollPos;
 	componentDidMount() {
 		this.initCanvas();
 		this.resizeCanvas();
@@ -26,12 +35,13 @@ export class ExcelCanvas extends React.Component<commentListProps> {
 		window.addEventListener('resize', this.resizeCanvas);
 	}
 	drawTable() {
-		drawTableByScroll(this.canvas.current, { x: 10, y: 10 }, {
+		clearCanvas(this.canvas.current, { x: 0, y: 0 }, { width: this.canvas.current.width, height: this.canvas.current.height });
+		drawTableByScroll(this.canvas.current, this.scrollPos, {
 			borderWidth: 1,
 			tdWidth: 80,
 			tdHeight: 30
 		});
-		drawTdTextByScroll(this.canvas.current, { x: 10, y: 10 }, { x: 0, y: 0 }, 'aa', {
+		drawTdTextByScroll(this.canvas.current, this.scrollPos, { x: 0, y: 0 }, 'aa', {
 			width: 80,
 			height: 30
 		});
@@ -48,6 +58,10 @@ export class ExcelCanvas extends React.Component<commentListProps> {
 	cancelListen() {
 		window.removeEventListener('resize', this.resizeCanvas);
 	}
+	scrollChange = (moveTop: number) => {
+		this.scrollPos.y = moveTop;
+		this.drawTable();
+	}
 	render() {
 		this.wrapper = React.createRef();
 		this.canvas = React.createRef();
@@ -55,7 +69,7 @@ export class ExcelCanvas extends React.Component<commentListProps> {
 		return (
 			<div className="er-canvas-wrapper" ref={this.wrapper} id="test">
 				<canvas id="canvas" ref={this.canvas}></canvas>
-				<ScrollBar height={height}></ScrollBar>
+				<ScrollBar height={height} scrollCb={this.scrollChange}></ScrollBar>
 			</div>
 		);
 	}
