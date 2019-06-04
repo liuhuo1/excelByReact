@@ -65,7 +65,7 @@ export class ExcelCanvas extends React.Component<commentListProps> {
 	render() {
 		this.wrapper = React.createRef();
 		this.canvas = React.createRef();
-		let height = 30 * 100;
+		let height = 30 * 1000;
 		return (
 			<div className="er-canvas-wrapper" ref={this.wrapper} id="test">
 				<canvas id="canvas" ref={this.canvas}></canvas>

@@ -7,22 +7,30 @@ interface ScrollBarProps {
 	type?: string;
 	width?: number;
 	height: number;
-	scrollCb: Function
+	scrollCb: Function;
+	minThumbHeight?: number;
 };
 interface ScrollBarState {
+	realThumbHeight: number;
 	thumbHeight: number;
 	scrollTop: number;
 };
+
+const MinThumbHeight = 60;
+
 export default class ScrollBar extends React.Component<ScrollBarProps> {
 	constructor(props: ScrollBarProps) {
 		super(props);
 		this.state = {
+			realThumbHeight: 0,
 			thumbHeight: 0,
 			scrollTop: 0
 		};
+		this.minThumbHeight = props.minThumbHeight || MinThumbHeight;
 	}
 	wrapper: any;
 	thumb: any;
+	minThumbHeight: number;
 	state: ScrollBarState;
 	componentDidMount() {
 		this.bindEvent();
@@ -35,12 +43,17 @@ export default class ScrollBar extends React.Component<ScrollBarProps> {
 		this.removeBind();
 	}
 	bindEvent() {
-		this.wrapper.current.parentNode.addEventListener('mousewheel', this.moveScroll);
+		if (this.props.type !== 'x') {
+			this.wrapper.current.parentNode.addEventListener('mousewheel', this.moveScrollY);
+		}
 	}
-	moveScroll = (e: any) => {
+	moveScrollY = (e: any) => {
 		let scrollTop = this.state.scrollTop;
-		let maxScrollTop = this.wrapper.current.parentNode.clientHeight - this.state.thumbHeight;
-		scrollTop = scrollTop - e.wheelDeltaY;
+		let clientHeight = this.wrapper.current.parentNode.clientHeight;
+		let maxScrollTop = clientHeight - this.state.thumbHeight;
+		let wheelDeltaY = e.wheelDeltaY;
+		wheelDeltaY = wheelDeltaY * clientHeight / this.props.height;
+		scrollTop = scrollTop - wheelDeltaY;
 		if (scrollTop < 0) {
 			scrollTop = 0;
 		}
@@ -52,12 +65,14 @@ export default class ScrollBar extends React.Component<ScrollBarProps> {
 		})
 	}
 	removeBind() {
-		this.wrapper.current.parentNode.removeEventListener(this.moveScroll);
+		this.wrapper.current.parentNode.removeEventListener(this.moveScrollY);
 	}
 	setThumbHeight() {
 		let parentHeight = this.wrapper.current.parentNode.clientHeight;
 		let thumbHeight = Math.ceil((parentHeight * parentHeight) / this.props.height);
-		this.setState({ thumbHeight: thumbHeight });
+		let realThumbHeight = thumbHeight > this.minThumbHeight ? thumbHeight : this.minThumbHeight;
+		this.setState({ thumbHeight });
+		this.setState({ realThumbHeight })
 		domDrag(this.thumb.current, this.wrapper.current, undefined, this.movingCb);
 	}
 	movingCb = (pos) => {
@@ -76,9 +91,9 @@ export default class ScrollBar extends React.Component<ScrollBarProps> {
 	render() {
 		this.wrapper = React.createRef();
 		this.thumb = React.createRef();
-		let { thumbHeight, scrollTop } = this.state;
+		let { realThumbHeight, scrollTop } = this.state;
 		let thumbStyle = {
-			height: `${thumbHeight}px`,
+			height: `${realThumbHeight}px`,
 			top: `${scrollTop}px`
 		};
 		return (
