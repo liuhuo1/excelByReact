@@ -5,7 +5,7 @@ import { getStyle } from '@src/common/js/dom';
 
 interface ScrollBarProps {
 	type?: string;
-	scrollLength: number;
+	distance: number;
 	scrollCb: Function;
 	minThumbHeight?: number;
 };
@@ -52,7 +52,7 @@ export default class ScrollBarY extends React.Component<ScrollBarProps> {
 		let clientHeight = this.wrapper.current.parentNode.clientHeight;
 		let maxScrollTop = clientHeight - this.state.thumbHeight;
 		let wheelDeltaY = e.wheelDeltaY;
-		wheelDeltaY = wheelDeltaY * clientHeight / this.props.scrollLength;
+		wheelDeltaY = wheelDeltaY * clientHeight / this.props.distance;
 		scrollTop = scrollTop - wheelDeltaY;
 		if (scrollTop < 0) {
 			scrollTop = 0;
@@ -69,7 +69,7 @@ export default class ScrollBarY extends React.Component<ScrollBarProps> {
 	}
 	setThumbHeight() {
 		let parentHeight = this.wrapper.current.parentNode.clientHeight;
-		let thumbHeight = Math.ceil((parentHeight * parentHeight) / this.props.scrollLength);
+		let thumbHeight = Math.ceil((parentHeight * parentHeight) / this.props.distance);
 		thumbHeight = thumbHeight > this.minThumbHeight ? thumbHeight : this.minThumbHeight;
 		if (thumbHeight >= parentHeight) {
 			thumbHeight = 0;
@@ -85,7 +85,7 @@ export default class ScrollBarY extends React.Component<ScrollBarProps> {
 		let top = parseInt(getStyle(this.thumb.current, 'top')) || 0;
 		let thumbHeight = this.state.thumbHeight;
 		let wrapperHeight = this.wrapper.current.clientHeight;
-		let height = this.props.scrollLength;
+		let height = this.props.distance;
 		let moveTop = top * (height - wrapperHeight) / (wrapperHeight - thumbHeight);
 		this.props.scrollCb(moveTop);
 	}

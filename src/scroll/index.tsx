@@ -3,7 +3,7 @@ import ScrollBarY from './scrollBarY';
 import ScrollBarX from './scrollBarX';
 interface ScrollBarProps {
 	type?: string;
-	scrollLength: number;
+	distance: number;
 	scrollCb: Function;
 	minThumbHeight?: number;
 };

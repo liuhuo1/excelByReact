@@ -5,7 +5,7 @@ import { getStyle } from '@src/common/js/dom';
 
 interface ScrollBarProps {
 	type?: string;
-	scrollLength: number;
+	distance: number;
 	scrollCb: Function;
 	minThumbHeight?: number;
 };
@@ -39,7 +39,7 @@ export default class ScrollBarX extends React.Component<ScrollBarProps> {
 
 	setThumbHeight() {
 		let parentWidth = this.wrapper.current.parentNode.clientWidth;
-		let thumbHeight = Math.ceil((parentWidth * parentWidth) / this.props.scrollLength);
+		let thumbHeight = Math.ceil((parentWidth * parentWidth) / this.props.distance);
 		thumbHeight = thumbHeight > this.minThumbHeight ? thumbHeight : this.minThumbHeight;
 		if (thumbHeight >= parentWidth) {
 			thumbHeight = 0;
@@ -55,8 +55,8 @@ export default class ScrollBarX extends React.Component<ScrollBarProps> {
 		let left = parseInt(getStyle(this.thumb.current, 'left')) || 0;
 		let thumbHeight = this.state.thumbHeight;
 		let wrapperHeight = this.wrapper.current.clientWidth;
-		let scrollLength = this.props.scrollLength;
-		let moveDistance = left * (scrollLength - wrapperHeight) / (wrapperHeight - thumbHeight);
+		let distance = this.props.distance;
+		let moveDistance = left * (distance - wrapperHeight) / (wrapperHeight - thumbHeight);
 		this.props.scrollCb(moveDistance);
 	}
 	render() {

@@ -80,8 +80,8 @@ export class ExcelCanvas extends React.Component<commentListProps> {
 		return (
 			<div className="er-canvas-wrapper" ref={this.wrapper} id="test">
 				<canvas id="canvas" ref={this.canvas}></canvas>
-				<ScrollBar ref={this.scrollY} scrollLength={height} scrollCb={this.scrollChange}></ScrollBar>
-				<ScrollBar ref={this.scrollX} type="x" scrollLength={width} scrollCb={this.scrollXChange}></ScrollBar>
+				<ScrollBar ref={this.scrollY} distance={height} scrollCb={this.scrollChange}></ScrollBar>
+				<ScrollBar ref={this.scrollX} type="x" distance={width} scrollCb={this.scrollXChange}></ScrollBar>
 			</div>
 		);
 	}
