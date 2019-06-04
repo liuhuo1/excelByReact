@@ -32,6 +32,7 @@ export default class ScrollBarY extends React.Component<ScrollBarProps> {
 	componentDidMount() {
 		this.bindEvent();
 		this.setThumbHeight();
+		domDrag(this.thumb.current, this.wrapper.current, undefined, this.movingCb);
 	}
 	componentDidUpdate() {
 		this.moving();
@@ -41,6 +42,7 @@ export default class ScrollBarY extends React.Component<ScrollBarProps> {
 	}
 	bindEvent() {
 		this.wrapper.current.parentNode.addEventListener('mousewheel', this.moveScrollY);
+
 	}
 	moveScrollY = (e: any) => {
 		if (this.state.thumbHeight === 0) {
@@ -73,7 +75,6 @@ export default class ScrollBarY extends React.Component<ScrollBarProps> {
 			thumbHeight = 0;
 		}
 		this.setState({ thumbHeight });
-		domDrag(this.thumb.current, this.wrapper.current, undefined, this.movingCb);
 	}
 	movingCb = (pos) => {
 		this.setState({

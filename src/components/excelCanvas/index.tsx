@@ -22,6 +22,8 @@ export class ExcelCanvas extends React.Component<commentListProps> {
 	canvas?: any;
 	wrapper?: any;
 	scrollPos: ScrollPos;
+	scrollY: any;
+	scrollX: any;
 	componentDidMount() {
 		this.initCanvas();
 		this.resizeCanvas();
@@ -53,6 +55,8 @@ export class ExcelCanvas extends React.Component<commentListProps> {
 		canvas.setAttribute('width', wrapper.clientWidth);
 		canvas.setAttribute('height', wrapper.clientHeight);
 		this.drawTable();
+		this.scrollY.current.resetThumbHeight();
+		this.scrollX.current.resetThumbHeight();
 	};
 	// 接触监听
 	cancelListen() {
@@ -69,13 +73,15 @@ export class ExcelCanvas extends React.Component<commentListProps> {
 	render() {
 		this.wrapper = React.createRef();
 		this.canvas = React.createRef();
+		this.scrollY = React.createRef();
+		this.scrollX = React.createRef();
 		let height = 30 * 10;
 		let width = 80 * 10;
 		return (
 			<div className="er-canvas-wrapper" ref={this.wrapper} id="test">
 				<canvas id="canvas" ref={this.canvas}></canvas>
-				<ScrollBar scrollLength={height} scrollCb={this.scrollChange}></ScrollBar>
-				<ScrollBar type="x" scrollLength={width} scrollCb={this.scrollXChange}></ScrollBar>
+				<ScrollBar ref={this.scrollY} scrollLength={height} scrollCb={this.scrollChange}></ScrollBar>
+				<ScrollBar ref={this.scrollX} type="x" scrollLength={width} scrollCb={this.scrollXChange}></ScrollBar>
 			</div>
 		);
 	}

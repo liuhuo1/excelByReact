@@ -31,6 +31,7 @@ export default class ScrollBarX extends React.Component<ScrollBarProps> {
 	state: ScrollBarState;
 	componentDidMount() {
 		this.setThumbHeight();
+		domDrag(this.thumb.current, this.wrapper.current, undefined, this.movingCb);
 	}
 	componentDidUpdate() {
 		this.moving();
@@ -41,10 +42,9 @@ export default class ScrollBarX extends React.Component<ScrollBarProps> {
 		let thumbHeight = Math.ceil((parentWidth * parentWidth) / this.props.scrollLength);
 		thumbHeight = thumbHeight > this.minThumbHeight ? thumbHeight : this.minThumbHeight;
 		if (thumbHeight >= parentWidth) {
-			parentWidth = 0;
+			thumbHeight = 0;
 		}
 		this.setState({ thumbHeight });
-		domDrag(this.thumb.current, this.wrapper.current, undefined, this.movingCb);
 	}
 	movingCb = (pos) => {
 		this.setState({

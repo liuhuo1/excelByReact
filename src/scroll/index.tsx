@@ -12,17 +12,21 @@ export default class ScrollBar extends React.Component<ScrollBarProps> {
 	constructor(props: ScrollBarProps) {
 		super(props);
 	}
+	com: any;
 	getCom() {
 		if (this.props.type === 'x') {
 			return ScrollBarX;
 		}
 		return ScrollBarY;
 	}
+	resetThumbHeight() {
+		this.com.current.setThumbHeight();
+	}
 	render() {
+		this.com = React.createRef();
 		let Scroll = this.getCom();
 		return (
-			<Scroll {...this.props}></Scroll>
+			<Scroll ref={this.com} {...this.props}></Scroll>
 		);
 	}
 }
-
