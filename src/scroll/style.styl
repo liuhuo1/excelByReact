@@ -4,6 +4,7 @@
 	width: 10px;
 	top: 0px;
 	bottom: 0px;
+	overflow: hidden;
 
 	.er-scroll-track {
 		height: 100%;
@@ -13,6 +14,29 @@
 			position: absolute;
 			top: 0px;
 			width: 100%;
+			cursor: pointer;
+			background-color: #333;
+			border-radius: 4px;
+		}
+	}
+}
+
+.er-scrollbarx-wrapper {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	height: 10px;
+	bottom: 0px;
+	overflow: hidden;
+
+	.er-scrollx-track {
+		height: 100%;
+		width: 100%;
+
+		.er-scrollx-thumb {
+			position: absolute;
+			left: 0px;
+			height: 100%;
 			cursor: pointer;
 			background-color: #333;
 			border-radius: 4px;

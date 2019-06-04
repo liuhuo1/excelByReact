@@ -62,14 +62,20 @@ export class ExcelCanvas extends React.Component<commentListProps> {
 		this.scrollPos.y = moveTop;
 		this.drawTable();
 	}
+	scrollXChange = (moveLeft: number) => {
+		this.scrollPos.x = moveLeft;
+		this.drawTable();
+	}
 	render() {
 		this.wrapper = React.createRef();
 		this.canvas = React.createRef();
-		let height = 30 * 1000;
+		let height = 30 * 10;
+		let width = 80 * 10;
 		return (
 			<div className="er-canvas-wrapper" ref={this.wrapper} id="test">
 				<canvas id="canvas" ref={this.canvas}></canvas>
-				<ScrollBar height={height} scrollCb={this.scrollChange}></ScrollBar>
+				<ScrollBar scrollLength={height} scrollCb={this.scrollChange}></ScrollBar>
+				<ScrollBar type="x" scrollLength={width} scrollCb={this.scrollXChange}></ScrollBar>
 			</div>
 		);
 	}
