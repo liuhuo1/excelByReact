@@ -112,8 +112,15 @@ const handleDrag = function (e: MouseEvent) {
 };
 
 
-
-export default function (target: DragHTMLElement, wrapper?: HTMLElement, moveTarget?: HTMLElement, cb?: Function) {
+/**
+ * 设置元素可以拖拽
+ * @param {DragHTMLElement} target 触发拖动的元素
+ * @param {HTMLElement} wrapper 允许拖动的范围
+ * @param {HTMLElement} moveTarget 拖动时实际需要移动的元素,没有则移动target
+ * @param {Function} cb 移动过程中的回调
+ * @return {void}
+ * */
+export default function (target: DragHTMLElement, wrapper?: HTMLElement, moveTarget?: HTMLElement, cb?: Function): void {
 	const start = function (e: MouseEvent) {
 		handleMousedown(e, wrapper, moveTarget);
 	};
