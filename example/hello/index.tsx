@@ -19,14 +19,14 @@ export class Clock extends React.Component<any, ClockState> {
 	}
 	componentDidMount() {
 		console.log(123);
-		this.timerID = setInterval(
+		this.timerID = window.setInterval(
 			() => this.tick(),
 			1000
 		);
 	}
 
 	componentWillUnmount() {
-		clearInterval(this.timerID);
+		window.clearInterval(this.timerID);
 	}
 
 	render() {
